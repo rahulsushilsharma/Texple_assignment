@@ -1,0 +1,29 @@
+{
+  "name": "texple_assignment",
+  "version": "1.0.0",
+  "description": "Texple assignment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahulsushilsharma/Texple_assignment.git"
+  },
+  "keywords": [
+    "toDo",
+    "app",
+    "word",
+    "search"
+  ],
+  "author": "Rahul Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rahulsushilsharma/Texple_assignment/issues"
+  },
+  "homepage": "https://github.com/rahulsushilsharma/Texple_assignment#readme",
+  "dependencies": {
+    "owlbot-js": "^2.0.0"
+  }
+}
