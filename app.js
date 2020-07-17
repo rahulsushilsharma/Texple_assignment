@@ -1,11 +1,22 @@
+//Switching betwteen functionality on page
+
 function dis(pageID) {
-	$(".fun").hide();
-	$(pageID).show();
+	let pages = document.querySelectorAll(".fun");
+	pages.forEach(page => {
+		page.style.display = "none";
+	});
+	document.querySelector(pageID).style.display = "block"
+
 }
 location.hash = "";
 location.hash = "#Word-search";
-$(window).on("hashchange",(hash)=>{
-	// console.log("hhhhh");
-
+window.addEventListener("hashchange",(hash)=>{
 	dis(location.hash);
 });
+
+
+
+// word search
+
+
+

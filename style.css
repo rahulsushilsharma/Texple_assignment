@@ -3,6 +3,22 @@
 	display: flex;
 }
 
+.form1 button {
+	background-color: white;
+	border: 1px;
+	border-radius: 20px;
+	border-style: solid;
+	text-align: center;
+}
+.form1 button:hover {
+	color: white;
+	background-color: black;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
 .button {
 	border: 1px;
 	border-radius: 20px;
