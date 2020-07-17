@@ -1,22 +1,10 @@
-//Switching betwteen functionality on page
+const Owlbot = require('owlbot-js');
+const express = require('express');
 
-function dis(pageID) {
-	let pages = document.querySelectorAll(".fun");
-	pages.forEach(page => {
-		page.style.display = "none";
-	});
-	document.querySelector(pageID).style.display = "block"
+const app = express();
 
-}
-location.hash = "";
-location.hash = "#Word-search";
-window.addEventListener("hashchange",(hash)=>{
-	dis(location.hash);
+app.listen(8800);
+
+app.get('/', (req,res)=>{
+   res.sendFile("./index.html", {root: __dirname})
 });
-
-
-
-// word search
-
-
-

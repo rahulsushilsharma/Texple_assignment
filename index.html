@@ -1,9 +1,61 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Assignment</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+		#options ul {
+			list-style-type: none;
+			display: flex;
+		}
+
+		.form1 button {
+			background-color: white;
+			border: 1px;
+			border-radius: 20px;
+			border-style: solid;
+			text-align: center;
+		}
+
+		.form1 button:hover {
+			color: white;
+			background-color: black;
+		}
+
+		input:focus::placeholder {
+			color: transparent;
+		}
+
+		.button {
+			border: 1px;
+			border-radius: 20px;
+			border-style: solid;
+			text-align: center;
+			margin: 20px;
+			padding: 10px;
+			flex: 1;
+		}
+
+		a {
+			color: black;
+			text-decoration: none;
+		}
+
+		a:hover {
+			color: white;
+			background-color: black;
+			text-decoration: none;
+		}
+
+		.current-page {
+			color: white;
+			background-color: black;
+			text-decoration: none;
+		}
+	</style>
 </head>
+
 <body>
 	<div id="options">
 		<ul>
@@ -13,13 +65,13 @@
 	</div>
 
 	<div class="fun" id="Word-search">
-		<div  class="fun-heading">
-		<h1>word search</h1>
+		<div class="fun-heading">
+			<h1>word search</h1>
 		</div>
-			<form id="search-form" class="form1">
-				<input type="text" name="search" placeholder="Enter word...">
-				<button type="submit">search</button>
-			</form>
+		<form id="search-form" class="form1" method="POST" action="/">
+			<input type="text" name="search" placeholder="Enter word...">
+			<button type="submit" value="submit">search</button>
+		</form>
 		<div>
 		</div>
 
@@ -36,8 +88,21 @@
 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		</p>
 	</div>
-	<script type="text/javascript" src="app.js"></script>
+	<script>
+		function dis(pageID) {
+			let pages = document.querySelectorAll(".fun");
+			pages.forEach(page => {
+				page.style.display = "none";
+			});
+			document.querySelector(pageID).style.display = "block"
 
+		}
+		location.hash = "";
+		location.hash = "#Word-search";
+		window.addEventListener("hashchange", (hash) => {
+			dis(location.hash);
+		});
+	</script>
 </body>
-</html>
 
+</html>
