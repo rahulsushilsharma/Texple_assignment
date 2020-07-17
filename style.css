@@ -1,0 +1,30 @@
+#options ul {
+	list-style-type: none;
+	display: flex;
+}
+
+.button {
+	border: 1px;
+	border-radius: 20px;
+	border-style: solid;
+	text-align: center;
+	margin: 20px;
+	padding: 10px;
+	flex: 1;
+}
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	color: white;
+	background-color: black;
+	text-decoration: none;
+}
+
+.current-page{
+	color: white;
+	background-color: black;
+	text-decoration: none;
+}
