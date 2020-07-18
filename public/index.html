@@ -101,12 +101,24 @@
 			list-style-type: none;
 			text-decoration: rgb(87, 87, 87);
 		}
+
 		.define {
+			display: flex;
 			margin: 2%;
 			border-radius: 20px;
 			padding: 5%;
 			padding-right: 10px;
 			background-color: rgb(243, 241, 241);
+		}
+		.define p{
+			flex: 1;
+		}
+		.define button{
+			border-radius: 20px;
+		}
+		.define button:hover {
+			color: white;
+			background-color: black;
 		}
 	</style>
 
@@ -127,113 +139,40 @@
 		</div>
 		<div class="form1">
 			<input id="search-input" type="text" name="search" placeholder="Enter word...">
-			<button type="submit" onclick="search(document.getElementById('search-input').value)"
-				value="submit">search</button>
+			<button onclick="search(document.getElementById('search-input').value)">search</button>
+		</div>
+
+		<div class="container">
+			<ul id="search-result" class="result">
+				<li>
+					<h4 id="word-heading">
+
+					</h4>
+
+				</li>
+			</ul>
 		</div>
 	</div>
-	<div class="container">
-		<ul id="search-result" class="result">
-			<li>
-				<h4 id="word-heading">
-
-				</h4>
-
-			</li>
-		</ul>
-	</div>
-
 	<div class="fun" id="ToDo-List">
 		<div class="fun-heading">
 			<h1>Todo List</h1>
 		</div>
-		<form id="todo-form" class="form1" method="POST">
-			<input type="text" name="search" placeholder="Enter a Todo...">
-			<button type="submit" value="submit">Add</button>
-		</form>
-		<div>
+		<div class="form1">
+			<input id="todo-input" type="text" name="search" placeholder="Enter a Todo...">
+			<button onclick="addLiTag(document.getElementById('todo-input').value)">Add</button>
 		</div>
 		<div>
-			<ul>
-				<li>
+		</div>
+		<div class="container" id="todo-container">
+			<ul id="todo-result" class="result">
 
-				</li>
 			</ul>
 		</div>
 	</div>
 
 
 	<!-- The javascripts -->
-	<script>
-		function dis(pageID) {
-			let pages = document.querySelectorAll(".fun");
-			pages.forEach(page => {
-				page.style.display = "none";
-			});
-			document.querySelector(pageID).style.display = "block"
-
-		}
-		location.hash = "";
-		location.hash = "#Word-search";
-		window.addEventListener("hashchange", (hash) => {
-			dis(location.hash);
-		});
-
-		function search(word) {
-
-			console.log(word);
-			const url = "https://owlbot.info/api/v4/dictionary/" + word;
-
-			const options = {
-				headers: {
-					Authorization: "Token de6cee09a2f30c7223b7c616994c4fc20a7c2929"
-				}
-			};
-
-
-
-
-
-			fetch(url, options)
-				.then(res => res.json())
-				.then(data => {
-					console.log(data);
-					let head = document.getElementById('word-heading');
-					head.textContent = "Word : " +  data.word;
-					const def = data.definitions;
-					def.forEach(define => {
-						console.log('qqq');
-						var tag = document.createElement("li");
-						
-						var heading = document.createElement("h5");
-						
-						var pera = document.createElement("p");
-						var pera1 = document.createElement("p");
-
-						var type = document.createTextNode("Type : "+ define.type);
-						var text = document.createTextNode("Definition :  "+ define.definition);
-						var exapmle =  document.createTextNode("Example :  "+ define.example);
-						
-						pera.appendChild(text);
-						heading.appendChild(type);
-						pera1.appendChild(exapmle);
-						tag.appendChild(heading);
-						tag.appendChild(pera);
-						tag.appendChild(pera1);
-						
-						
-						tag.classList.add("define");
-						var element = document.getElementById("search-result");
-						element.appendChild(tag);
-					});
-				})
-				.catch(e => {
-					console.error(e);
-				});
-
-
-
-		}
-	</script>
+	<script src="./index.js"></script>
 </body>
 
 </html>
