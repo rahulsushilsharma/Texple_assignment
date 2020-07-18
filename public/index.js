@@ -124,10 +124,26 @@ function addLiTag(define) {
 //     addHtmlToTodo(data);
 // }
 async function deleteTodo() {
-    let d = document.getElementById('todo-continer')
-    const responce = await fetch('/delete');
-    const data = await responce.json();
-    addHtmlToTodo(data);
+    let d = document.getElementById('todo-container');
+    let t;
+    d.addEventListener('click', (e) => {
+        e.stopPropagation();
+        t = e.target.parentElement.textContent;
+        e.target.parentElement.remove();
+    })
+    let data = {
+        tododata: t,
+    };
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    };
+    const responce = await fetch('/delete',options);
+    const res = await responce.json();
+    console.log(res);
 }
 // async function addNewTodo(todo) {
 //     add(todo);
@@ -135,7 +151,7 @@ async function deleteTodo() {
 //         tododata: todo,
 //     };
 //     const options = {
-      
+
 //         method: 'POST',
 //         body: JSON.stringify(data),
 //         headers: {
