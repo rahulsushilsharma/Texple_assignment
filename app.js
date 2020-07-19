@@ -42,6 +42,7 @@ app.get('/load', (req, res) => {
 
 
 app.post('/update', (req, res) => {
+   console.log(req.body);
    let up = {
       tododata: req.body.n
    };

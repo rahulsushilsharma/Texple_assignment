@@ -67,6 +67,8 @@ function search(word) {
 // todo javascript
 getdata();
 
+
+// adding new data to todo
 async function add(todo) {
     let data = {
         tododata: todo,
@@ -80,22 +82,22 @@ async function add(todo) {
     };
     const responce = await fetch('/api', options);
     const t = await responce.json();
-    addLiTag(t.tododata,t._id);
+    addLiTag(t[0].tododata,t[0]._id);
 }
 
 function addLiTag(define,id) {
     var tag = document.createElement("li");
-    var pera = document.createElement("input");
+    var pera = document.createElement("p");
     var edit = document.createElement("button");
     var del = document.createElement("button");
     edit.textContent = 'edit';
     del.textContent = 'delete';
-    edit.setAttribute('onclick', 'edit()')
+    edit.setAttribute('onclick', 'edit(this.parentNode.id)')
     del.setAttribute('onclick', 'deleteTodo(this.parentNode.id)');
     edit.classList.add("todo-button");
     del.classList.add("todo-button");
-    pera.placeholder = define;
-    pera.disabled = true;
+    pera.textContent = define;
+  
     tag.appendChild(pera);
     tag.appendChild(edit);
     tag.appendChild(del);
@@ -105,6 +107,8 @@ function addLiTag(define,id) {
     element.appendChild(tag);
 }
 
+
+// loading the privous data fron database
 function load(data) {
     data.forEach(define => {
         addLiTag(define.tododata,define._id);
@@ -117,20 +121,20 @@ async function getdata() {
     load(data);
 }
 
-async function updateTodo() {
-    let d = document.getElementById('todo-container');
-    let o, n;
+function edit(id){
+    let old = document.getElementById(id).childNodes;
+    let newTodo = prompt('Edit : ',old[0].textContent);
+    updateTodo(newTodo,old[0].textContent);
+    old[0].textContent = newTodo;
+}
 
-    d.addEventListener('click', (e) => {
-        e.stopPropagation();
-        o = e.target.parentElement.placeholder;
-        n = e.target.parentElement.textContent;
-        e.target.parentElement.remove();
-    })
+
+async function updateTodo(newTodo,old) {
     let data = {
-        old: o,
-        new: n
+        o: old,
+        n: newTodo
     };
+    console.log(data);
     const options = {
         method: 'POST',
         body: JSON.stringify(data),
@@ -139,7 +143,7 @@ async function updateTodo() {
         },
     };
 
-    const responce = await fetch('/update');
+    const responce = await fetch('/update',options);
     const t = await responce.json();
     console.log(t);
 }
