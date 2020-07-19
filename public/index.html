@@ -91,7 +91,7 @@
 			border-top-left-radius: 0px;
 			border-bottom-left-radius: 0px;
 		}
-
+		
 		.result {
 			text-align: justify;
 			padding: 0px;
@@ -100,6 +100,38 @@
 			background-color: rgb(231, 231, 231);
 			list-style-type: none;
 			text-decoration: rgb(87, 87, 87);
+		}
+		.todo-list{
+			
+			text-align: justify;
+			padding: 0px;
+			padding: 10px;
+			border-radius: 20px;
+			background-color: rgb(231, 231, 231);
+			list-style-type: none;
+			text-decoration: rgb(87, 87, 87);
+		}
+		.todo-elements{
+			display: flex;
+			margin: 2%;
+			border-radius: 20px;
+			padding: 5%;
+			padding-right: 10px;
+			background-color: rgb(243, 241, 241);
+		}
+		.todo-elements p{
+			flex: 1;
+			text-align: justify;
+			border: transparent;
+			font-weight: normal;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		
+		.todo-elements button{
+			border: 1px;
+			border-radius: 20px;
+			border-style: solid;
+			margin: 5px;
 		}
 
 		.define {
@@ -170,7 +202,7 @@
 		<div>
 		</div>
 		<div class="container" id="todo-container">
-			<ul id="todo-result" class="result">
+			<ul id="todo-result" class="todo-list">
 
 			</ul>
 		</div>

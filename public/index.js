@@ -102,7 +102,7 @@ function addLiTag(define,id) {
     tag.appendChild(edit);
     tag.appendChild(del);
     tag.id = id;
-    tag.classList.add("define");
+    tag.classList.add("todo-elements");
     var element = document.getElementById("todo-result");
     element.appendChild(tag);
 }
