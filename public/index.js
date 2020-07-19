@@ -15,8 +15,10 @@ window.addEventListener("hashchange", (hash) => {
 // api javascript
 
 function search(word) {
-    let head = document.getElementById('word-heading');
-        head.textContent = 'Searching,please wait....';
+    let head = document.getElementById('search-result');
+    head.textContent = 'Searching,please wait....';
+
+
     const url = "https://owlbot.info/api/v4/dictionary/" + word;
 
     const options = {
@@ -26,8 +28,13 @@ function search(word) {
     }
 
     function addHtmlToWord(data) {
-        head = document.getElementById('word-heading');
-        head.textContent = "Word : " + data.word;
+        head = document.getElementById('search-result');
+        head.textContent = '';
+        let li = document.createElement("li");
+
+        li.textContent = "Word : " + data.word;
+        head.appendChild(li);
+
         const def = data.definitions;
 
         function addLiTag(define) {
@@ -55,15 +62,22 @@ function search(word) {
         def.forEach(define => {
             addLiTag(define);
         });
+
     }
 
     fetch(url, options)
-        .then(res => res.json())
-        .then(data => {
-            addHtmlToWord(data)
-        }).catch(e => {
-            console.error(e);
-        });
+        .then(res => {
+            if (!res.ok) {
+                head.textContent = '';
+                let li = document.createElement("li");
+                li.textContent = 'word not found';
+                head.appendChild(li);
+            } else {
+                res.json().then(data => {
+                    addHtmlToWord(data)
+                });
+            }
+        })
 }
 // todo javascript
 getdata();
@@ -83,10 +97,10 @@ async function add(todo) {
     };
     const responce = await fetch('/api', options);
     const t = await responce.json();
-    addLiTag(t[0].tododata,t[0]._id);
+    addLiTag(t[0].tododata, t[0]._id);
 }
 
-function addLiTag(define,id) {
+function addLiTag(define, id) {
     var tag = document.createElement("li");
     var pera = document.createElement("p");
     var edit = document.createElement("button");
@@ -98,7 +112,7 @@ function addLiTag(define,id) {
     edit.classList.add("todo-button");
     del.classList.add("todo-button");
     pera.textContent = define;
-  
+
     tag.appendChild(pera);
     tag.appendChild(edit);
     tag.appendChild(del);
@@ -112,7 +126,7 @@ function addLiTag(define,id) {
 // loading the privous data fron database
 function load(data) {
     data.forEach(define => {
-        addLiTag(define.tododata,define._id);
+        addLiTag(define.tododata, define._id);
     });
 }
 
@@ -122,15 +136,15 @@ async function getdata() {
     load(data);
 }
 
-function edit(id){
+function edit(id) {
     let old = document.getElementById(id).childNodes;
-    let newTodo = prompt('Edit : ',old[0].textContent);
-    updateTodo(newTodo,old[0].textContent);
+    let newTodo = prompt('Edit : ', old[0].textContent);
+    updateTodo(newTodo, old[0].textContent);
     old[0].textContent = newTodo;
 }
 
 
-async function updateTodo(newTodo,old) {
+async function updateTodo(newTodo, old) {
     let data = {
         o: old,
         n: newTodo
@@ -144,7 +158,7 @@ async function updateTodo(newTodo,old) {
         },
     };
 
-    const responce = await fetch('/update',options);
+    const responce = await fetch('/update', options);
     const t = await responce.json();
     console.log(t);
 }
