@@ -19,3 +19,4 @@ npm install
 ```bash
 node app
 ```
+* open this [link](http://localhost:8800/) in browser.
