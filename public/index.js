@@ -15,7 +15,8 @@ window.addEventListener("hashchange", (hash) => {
 // api javascript
 
 function search(word) {
-
+    let head = document.getElementById('word-heading');
+        head.textContent = 'Searching,please wait....';
     const url = "https://owlbot.info/api/v4/dictionary/" + word;
 
     const options = {
@@ -25,7 +26,7 @@ function search(word) {
     }
 
     function addHtmlToWord(data) {
-        let head = document.getElementById('word-heading');
+        head = document.getElementById('word-heading');
         head.textContent = "Word : " + data.word;
         const def = data.definitions;
 
