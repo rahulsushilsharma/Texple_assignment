@@ -110,8 +110,11 @@
 			padding-right: 10px;
 			background-color: rgb(243, 241, 241);
 		}
-		.define p{
+		.define input{
 			flex: 1;
+			border: transparent;
+			font-weight: normal;
+			font-family: Arial, Helvetica, sans-serif;
 		}
 		.define button{
 			border-radius: 20px;
@@ -159,7 +162,7 @@
 		</div>
 		<div class="form1">
 			<input id="todo-input" type="text" name="search" placeholder="Enter a Todo...">
-			<button onclick="addLiTag(document.getElementById('todo-input').value)">Add</button>
+			<button onclick="add(document.getElementById('todo-input').value)">Add</button>
 		</div>
 		<div>
 		</div>

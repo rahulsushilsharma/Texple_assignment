@@ -65,6 +65,7 @@ function search(word) {
         });
 }
 // todo javascript
+getdata();
 
 async function add(todo) {
     let data = {
@@ -79,60 +80,56 @@ async function add(todo) {
     };
     const responce = await fetch('/api', options);
     const t = await responce.json();
-    console.log(t);
+    addLiTag(t.tododata,t._id);
 }
 
-function addLiTag(define) {
-    add(define);
+function addLiTag(define,id) {
     var tag = document.createElement("li");
-    var pera = document.createElement("p");
+    var pera = document.createElement("input");
     var edit = document.createElement("button");
     var del = document.createElement("button");
     edit.textContent = 'edit';
     del.textContent = 'delete';
-    edit.setAttribute('onclick', 'updateTodo()')
-    del.setAttribute('onclick', 'deleteTodo()');
+    edit.setAttribute('onclick', 'edit()')
+    del.setAttribute('onclick', 'deleteTodo(this.parentNode.id)');
     edit.classList.add("todo-button");
     del.classList.add("todo-button");
-    var text = document.createTextNode(define);
-
-    pera.appendChild(text);
+    pera.placeholder = define;
+    pera.disabled = true;
     tag.appendChild(pera);
     tag.appendChild(edit);
     tag.appendChild(del);
-
+    tag.id = id;
     tag.classList.add("define");
     var element = document.getElementById("todo-result");
     element.appendChild(tag);
 }
 
-// function addHtmlToTodo(data) {
-//     data.forEach(define => {
-//         addLiTag(define);
-//     });
-// }
+function load(data) {
+    data.forEach(define => {
+        addLiTag(define.tododata,define._id);
+    });
+}
 
+async function getdata() {
+    const responce = await fetch('/load');
+    const data = await responce.json();
+    load(data);
+}
 
-// async function getdata() {
-//     const responce = await fetch('/load');
-//     const data = await responce.json();
-//     addHtmlToTodo(data);
-// }
-// async function updateTodo() {
-//     const responce = await fetch('/update');
-//     const data = await responce.json();
-//     addHtmlToTodo(data);
-// }
-async function deleteTodo() {
+async function updateTodo() {
     let d = document.getElementById('todo-container');
-    let t;
+    let o, n;
+
     d.addEventListener('click', (e) => {
         e.stopPropagation();
-        t = e.target.parentElement.textContent;
+        o = e.target.parentElement.placeholder;
+        n = e.target.parentElement.textContent;
         e.target.parentElement.remove();
     })
     let data = {
-        tododata: t,
+        old: o,
+        new: n
     };
     const options = {
         method: 'POST',
@@ -141,24 +138,28 @@ async function deleteTodo() {
             'Content-Type': 'application/json'
         },
     };
-    const responce = await fetch('/delete',options);
+
+    const responce = await fetch('/update');
+    const t = await responce.json();
+    console.log(t);
+}
+
+
+// delete a item
+async function deleteTodo(id) {
+    console.log(id);
+    let data = {
+        _id: id,
+    };
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    };
+    const responce = await fetch('/delete', options);
     const res = await responce.json();
+    document.getElementById(id).remove();
     console.log(res);
 }
-// async function addNewTodo(todo) {
-//     add(todo);
-//     let data = {
-//         tododata: todo,
-//     };
-//     const options = {
-
-//         method: 'POST',
-//         body: JSON.stringify(data),
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//     };
-//     const responce = await fetch('/new',options);
-//     const data = await responce.json();
-//     addLiTag(data);
-// }
