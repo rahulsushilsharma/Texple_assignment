@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/rahulsushilsharma/Texple_assignment#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "nedb": "^1.8.0"
   }
 }
